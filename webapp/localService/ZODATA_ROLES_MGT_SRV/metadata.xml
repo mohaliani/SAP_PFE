@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZODATA_ROLES_MGT_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="header" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="returnmessage" Relationship="ZODATA_ROLES_MGT_SRV.HDR_TO_RET" FromRole="FromRole_HDR_TO_RET" ToRole="ToRole_HDR_TO_RET"/>
+                <NavigationProperty Name="allusers" Relationship="ZODATA_ROLES_MGT_SRV.HDR_TO_ROLE" FromRole="FromRole_HDR_TO_ROLE" ToRole="ToRole_HDR_TO_ROLE"/>
+            </EntityType>
+            <EntityType Name="role" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Userid"/>
+                </Key>
+                <Property Name="Userid" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Role" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Role" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Datefrom" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Dateto" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="return" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Userid"/>
+                </Key>
+                <Property Name="Icon" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Message Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Userid" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Role" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Role" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Datefrom" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Dateto" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Message" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="HDR_TO_RET" sap:content-version="1">
+                <End Type="ZODATA_ROLES_MGT_SRV.header" Multiplicity="1" Role="FromRole_HDR_TO_RET"/>
+                <End Type="ZODATA_ROLES_MGT_SRV.return" Multiplicity="*" Role="ToRole_HDR_TO_RET"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_HDR_TO_RET">
+                        <PropertyRef Name="id"/>
+                    </Principal>
+                    <Dependent Role="ToRole_HDR_TO_RET">
+                        <PropertyRef Name="Userid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="HDR_TO_ROLE" sap:content-version="1">
+                <End Type="ZODATA_ROLES_MGT_SRV.header" Multiplicity="1" Role="FromRole_HDR_TO_ROLE"/>
+                <End Type="ZODATA_ROLES_MGT_SRV.role" Multiplicity="*" Role="ToRole_HDR_TO_ROLE"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_HDR_TO_ROLE">
+                        <PropertyRef Name="id"/>
+                    </Principal>
+                    <Dependent Role="ToRole_HDR_TO_ROLE">
+                        <PropertyRef Name="Userid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZODATA_ROLES_MGT_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="headerSet" EntityType="ZODATA_ROLES_MGT_SRV.header" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="roleSet" EntityType="ZODATA_ROLES_MGT_SRV.role" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="returnSet" EntityType="ZODATA_ROLES_MGT_SRV.return" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="HDR_TO_ROLESet" Association="ZODATA_ROLES_MGT_SRV.HDR_TO_ROLE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="headerSet" Role="FromRole_HDR_TO_ROLE"/>
+                    <End EntitySet="roleSet" Role="ToRole_HDR_TO_ROLE"/>
+                </AssociationSet>
+                <AssociationSet Name="HDR_TO_RETSet" Association="ZODATA_ROLES_MGT_SRV.HDR_TO_RET" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="headerSet" Role="FromRole_HDR_TO_RET"/>
+                    <End EntitySet="returnSet" Role="ToRole_HDR_TO_RET"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="http://dlwr-trac-p2.dcsc.be:8000/sap/opu/odata/sap/ZODATA_ROLES_MGT_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://dlwr-trac-p2.dcsc.be:8000/sap/opu/odata/sap/ZODATA_ROLES_MGT_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

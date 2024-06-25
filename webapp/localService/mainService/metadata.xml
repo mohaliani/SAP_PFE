@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+xmlns:sap="http://www.sap.com/Protocols/SAPData">
+<edmx:DataServices m:DataServiceVersion="2.0">
+    <Schema Namespace="Z_CSV_USER_MAINTENANCE_SRV" xml:lang="en" sap:schema-version="1"
+    xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+    <EntityType Name="user" sap:content-version="1">
+        <Key>
+            <PropertyRef Name="userid"/>
+        </Key>
+        <Property Name="userid" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="firstname" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="First name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="lastname" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Last name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="email" Type="Edm.String" Nullable="false" MaxLength="241" sap:unicode="false" sap:label="E-Mail Address" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="password" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Password" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="langup" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="datefrom" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Valid from" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="dateto" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Valid To" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="usergrp" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="spld" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Output Device" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="commtype" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Comm. Method" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="dcpfm" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Decimal Format" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="company" Type="Edm.String" Nullable="false" MaxLength="42" sap:unicode="false" sap:label="Company" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+    </EntityType>
+    <EntityType Name="users" sap:content-version="1">
+        <Key>
+            <PropertyRef Name="id"/>
+        </Key>
+        <Property Name="id" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <NavigationProperty Name="userreturn" Relationship="Z_CSV_USER_MAINTENANCE_SRV.usersreturn" FromRole="FromRole_usersreturn" ToRole="ToRole_usersreturn"/>
+        <NavigationProperty Name="allusers" Relationship="Z_CSV_USER_MAINTENANCE_SRV.allusers" FromRole="FromRole_allusers" ToRole="ToRole_allusers"/>
+    </EntityType>
+    <EntityType Name="userReturn" sap:content-version="1">
+        <Key>
+            <PropertyRef Name="userid"/>
+        </Key>
+        <Property Name="icon" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Message Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="userid" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="firstname" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="First name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="lastname" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Last name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="email" Type="Edm.String" Nullable="false" MaxLength="241" sap:unicode="false" sap:label="E-Mail Address" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="password" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Password" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="langup" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Language" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="datefrom" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Valid from" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="dateto" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Valid To" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="usergrp" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="spld" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Output Device" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="commtype" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Comm. Method" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="dcpfm" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Decimal Format" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="company" Type="Edm.String" Nullable="false" MaxLength="42" sap:unicode="false" sap:label="Company" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+        <Property Name="message" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Message" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+    </EntityType>
+    <Association Name="usersreturn" sap:content-version="1">
+        <End Type="Z_CSV_USER_MAINTENANCE_SRV.users" Multiplicity="1" Role="FromRole_usersreturn"/>
+        <End Type="Z_CSV_USER_MAINTENANCE_SRV.userReturn" Multiplicity="*" Role="ToRole_usersreturn"/>
+        <ReferentialConstraint>
+            <Principal Role="FromRole_usersreturn">
+                <PropertyRef Name="id"/>
+            </Principal>
+            <Dependent Role="ToRole_usersreturn">
+                <PropertyRef Name="userid"/>
+            </Dependent>
+        </ReferentialConstraint>
+    </Association>
+    <Association Name="allusers" sap:content-version="1">
+        <End Type="Z_CSV_USER_MAINTENANCE_SRV.users" Multiplicity="1" Role="FromRole_allusers"/>
+        <End Type="Z_CSV_USER_MAINTENANCE_SRV.user" Multiplicity="*" Role="ToRole_allusers"/>
+        <ReferentialConstraint>
+            <Principal Role="FromRole_allusers">
+                <PropertyRef Name="id"/>
+            </Principal>
+            <Dependent Role="ToRole_allusers">
+                <PropertyRef Name="userid"/>
+            </Dependent>
+        </ReferentialConstraint>
+    </Association>
+    <EntityContainer Name="Z_CSV_USER_MAINTENANCE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+        <EntitySet Name="userSet" EntityType="Z_CSV_USER_MAINTENANCE_SRV.user" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+        <EntitySet Name="usersSet" EntityType="Z_CSV_USER_MAINTENANCE_SRV.users" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+        <EntitySet Name="userReturnSet" EntityType="Z_CSV_USER_MAINTENANCE_SRV.userReturn" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+        <AssociationSet Name="allusersSet" Association="Z_CSV_USER_MAINTENANCE_SRV.allusers" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+            <End EntitySet="usersSet" Role="FromRole_allusers"/>
+            <End EntitySet="userSet" Role="ToRole_allusers"/>
+        </AssociationSet>
+        <AssociationSet Name="usersreturnSet" Association="Z_CSV_USER_MAINTENANCE_SRV.usersreturn" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+            <End EntitySet="usersSet" Role="FromRole_usersreturn"/>
+            <End EntitySet="userReturnSet" Role="ToRole_usersreturn"/>
+        </AssociationSet>
+    </EntityContainer>
+    <atom:link rel="self" href="http://dlwr-trac-p2.dcsc.be:8000/sap/opu/odata/sap/Z_CSV_USER_MAINTENANCE_SRV/$metadata"
+    xmlns:atom="http://www.w3.org/2005/Atom"/>
+    <atom:link rel="latest-version" href="http://dlwr-trac-p2.dcsc.be:8000/sap/opu/odata/sap/Z_CSV_USER_MAINTENANCE_SRV/$metadata"
+    xmlns:atom="http://www.w3.org/2005/Atom"/>
+</Schema>
+</edmx:DataServices>
+</edmx:Edmx>

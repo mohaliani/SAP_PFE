@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="Z_CSV_PARAMS_MAINTENANCE_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="parameters" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="id" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="paramreturn" Relationship="Z_CSV_PARAMS_MAINTENANCE_SRV.paramreturn" FromRole="FromRole_paramreturn" ToRole="ToRole_paramreturn"/>
+                <NavigationProperty Name="allparams" Relationship="Z_CSV_PARAMS_MAINTENANCE_SRV.allparams" FromRole="FromRole_allparams" ToRole="ToRole_allparams"/>
+            </EntityType>
+            <EntityType Name="paramsreturn" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="userid"/>
+                    <PropertyRef Name="parid"/>
+                </Key>
+                <Property Name="icon" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Message Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="userid" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="parid" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Parameter" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="parva" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Parameter value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="message" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Message" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="parameter" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="userid"/>
+                    <PropertyRef Name="parid"/>
+                </Key>
+                <Property Name="userid" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="User" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="parid" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Parameter" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="parva" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Parameter value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="paramreturn" sap:content-version="1">
+                <End Type="Z_CSV_PARAMS_MAINTENANCE_SRV.parameters" Multiplicity="1" Role="FromRole_paramreturn"/>
+                <End Type="Z_CSV_PARAMS_MAINTENANCE_SRV.paramsreturn" Multiplicity="*" Role="ToRole_paramreturn"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_paramreturn">
+                        <PropertyRef Name="id"/>
+                    </Principal>
+                    <Dependent Role="ToRole_paramreturn">
+                        <PropertyRef Name="parid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="allparams" sap:content-version="1">
+                <End Type="Z_CSV_PARAMS_MAINTENANCE_SRV.parameters" Multiplicity="1" Role="FromRole_allparams"/>
+                <End Type="Z_CSV_PARAMS_MAINTENANCE_SRV.parameter" Multiplicity="*" Role="ToRole_allparams"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_allparams">
+                        <PropertyRef Name="id"/>
+                    </Principal>
+                    <Dependent Role="ToRole_allparams">
+                        <PropertyRef Name="parid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="Z_CSV_PARAMS_MAINTENANCE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="parametersSet" EntityType="Z_CSV_PARAMS_MAINTENANCE_SRV.parameters" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="paramsreturnSet" EntityType="Z_CSV_PARAMS_MAINTENANCE_SRV.paramsreturn" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="parameterSet" EntityType="Z_CSV_PARAMS_MAINTENANCE_SRV.parameter" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="allparamsSet" Association="Z_CSV_PARAMS_MAINTENANCE_SRV.allparams" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="parametersSet" Role="FromRole_allparams"/>
+                    <End EntitySet="parameterSet" Role="ToRole_allparams"/>
+                </AssociationSet>
+                <AssociationSet Name="paramreturnSet" Association="Z_CSV_PARAMS_MAINTENANCE_SRV.paramreturn" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="parametersSet" Role="FromRole_paramreturn"/>
+                    <End EntitySet="paramsreturnSet" Role="ToRole_paramreturn"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="http://dlwr-trac-p2.dcsc.be:8000/sap/opu/odata/sap/Z_CSV_PARAMS_MAINTENANCE_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://dlwr-trac-p2.dcsc.be:8000/sap/opu/odata/sap/Z_CSV_PARAMS_MAINTENANCE_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
