@@ -1,0 +1,35 @@
+.mainVBox {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .buttonHBox {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Added gap to separate buttons */
+  }
+  
+  Button {
+    min-width: 100px;
+  }
+  
+  #responseTable {
+    margin: 0 auto;
+  }
+  
+  .sapUiSmallMarginBottom {
+    margin-bottom: 10px;
+  }
+  
+  .sapUiResponsiveMargin {
+    margin: 0 10px;
+  }
+  
+
+
+  

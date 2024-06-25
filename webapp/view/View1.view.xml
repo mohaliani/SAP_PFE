@@ -2,19 +2,19 @@
   controllerName="project1.controller.View1"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
-  xmlns:core="sap.ui.core">
-
-  <VBox id="_IDGenVBox1">
-    <unified:FileUploader id="fileUploader" name="file" placeholder="Upload CSV File" change="onFileUpload" />
-
-    <HBox id="_IDGenHBox1">
-      <Button id="_IDGenButton1" text="Create" press="onCreate" />
-      <Button id="_IDGenButton2" text="Update" press="onUpdate" />
-      <Button id="_IDGenButton3" text="Delete" press="onDelete" />
+  xmlns:core="sap.ui.core"
+>
+  <VBox id="mainVBox" class="mainVBox">
+    <unified:FileUploader id="fileUploader" name="file" placeholder="Upload CSV File" change="onFileUpload" class="fileUploader"/>
+    
+    <HBox id="buttonHBox" class="buttonHBox">
+      <Button id="createButton" text="Create" press="onCreate" type="Accept"/>
+      <Button id="updateButton" text="Update" press="onUpdate" type="Emphasized"/>
+      <Button id="deleteButton" text="Delete" press="onDelete" type="Reject"/>
     </HBox>
 
-    <ScrollContainer id="_IDGenScrollContainer1" height="500px" vertical="true" horizontal="false">
-      <Table id="responseTable" items="{userModel>/userreturn}" fixedLayout="false">
+    <ScrollContainer id="scrollContainer" height="500px" vertical="true" horizontal="false" class="sapUiSmallMarginBottom">
+      <Table id="responseTable" items="{userModel>/userreturn}" fixedLayout="false" class="sapUiResponsiveMargin" inset="false" width="auto">
         <columns>
           <Column id="_IDGenColumn1">
             <Label id="_IDGenLabel1" text="User ID" />

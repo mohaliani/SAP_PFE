@@ -93,16 +93,38 @@ sap.ui.define([
             var that = this;
             oODataModel.create("/usersSet", oData, {
                 success: function (response) {
-                    oModel.setProperty("/userreturn", response.userreturn.results);
+                    var formattedUserReturn = response.userreturn.results.map(function (item) {
+                        return {
+                            ...item,
+                            datefrom: that._formatDateFromBackend(item.datefrom), // Format date here
+                            dateto: that._formatDateFromBackend(item.dateto) // Format date here
+                        };
+                    });
+                    oModel.setProperty("/userreturn", formattedUserReturn);
                     MessageToast.show("Operation successful");
 
                     // Log userreturn to console
-                    console.log("Response from backend:", response.userreturn.results);
+                    console.log("Response from backend:", formattedUserReturn);
                 },
                 error: function () {
                     MessageToast.show("Error in backend communication");
                 }
             });
+        },
+
+        _formatDateFromBackend: function (sDate) {
+            // Assuming sDate is in the format returned from backend
+            if (sDate) {
+                var oDate = new Date(sDate);
+                var sFormattedDate = oDate.getFullYear() + "-" + this._padZero(oDate.getMonth() + 1) + "-" + this._padZero(oDate.getDate());
+                return sFormattedDate;
+            } else {
+                return null; // Return null or some default value if the date is invalid
+            }
+        },
+
+        _padZero: function (value) {
+            return value.toString().padStart(2, '0');
         }
     });
 });
