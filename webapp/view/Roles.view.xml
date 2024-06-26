@@ -24,16 +24,16 @@
                 <Column id="_IDGenColumn2" width="80px">
                     <Text id="_IDGenText2" text="Userid"/>
                 </Column>
-                <Column id="_IDGenColumn3">
+                <Column id="_IDGenColumn3" width="220px">
                     <Text id="_IDGenText3" text="Role id" />
                 </Column>
-                <Column id="_IDGenColumn4">
+                <Column id="_IDGenColumn4"  width="120px" >
                     <Text id="_IDGenText4" text="Start date"/>
                 </Column>
-                <Column id="_IDGenColumn5">
+                <Column id="_IDGenColumn5" width="120px">
                     <Text id="_IDGenText5" text="End date"/>
                 </Column>
-                <Column id="_IDGenColumn6" width="230px">
+                <Column id="_IDGenColumn6" width="250px">
                     <Text id="_IDGenText6" text="Message"/>
                 </Column>
             </columns>

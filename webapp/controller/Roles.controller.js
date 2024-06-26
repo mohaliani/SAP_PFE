@@ -101,18 +101,6 @@ sap.ui.define([
             
             var oODataModel = this.getView().getModel("ZODATA_ROLES_MGT_SRV");
             var that = this;
-            // oODataModel.create("/headerSet", oData, {
-            //     success: function (response) {
-            //         oModel.setProperty("/returnmessage", response.returnmessage.results);
-            //         MessageToast.show("Operation successful");
- 
-            //         // Log userreturn to console
-            //         console.log("Response from backend:", response.returnmessage.results);
-            //     },
-            //     error: function () {
-            //         MessageToast.show("Error in backend communication");
-            //     }
-            // });
 
             oODataModel.create("/headerSet", oData, {
                 success: function (response) {
@@ -131,7 +119,6 @@ sap.ui.define([
                         };
 
                     });
-                    debugger;
                     oModel.setProperty("/returnmessage", formattedRoleReturn);
                     MessageToast.show("Operation successful");
 
@@ -143,17 +130,6 @@ sap.ui.define([
                 }
             });
         },
-
-        // _formatDateFromBackend: function (sDate) {
-        //     // Assuming sDate is in the format returned from backend
-        //     if (sDate) {
-        //         var oDate = new Date(sDate);
-        //         var sFormattedDate = oDate.getFullYear() + "-" + this._padZero(oDate.getMonth() + 1) + "-" + this._padZero(oDate.getDate());
-        //         return sFormattedDate;
-        //     } else {
-        //         return null; // Return null or some default value if the date is invalid
-        //     }
-        // },
 
         _formatDateFromBackend: function (sDate) {
             // Log the date received from backend
