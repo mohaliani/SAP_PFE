@@ -1,0 +1,52 @@
+<mvc:View
+    xmlns:unified="sap.ui.unified"
+    controllerName="project1.controller.Parameters"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <VBox id="vboxu">
+        <unified:FileUploader
+            id="fileUploader"
+            width="400px"
+            placeholder="Choose a file for Users parameters"
+            change="onFileChange"
+        />
+        <RadioButtonGroup id="buttons_p" columns="1" >
+            <RadioButton
+                id="button1_p"
+                text="Add parameters"
+            />
+            <RadioButton
+                id="button2_p"
+                text="Modify parameters"
+            />
+            <RadioButton
+                id="button3_p"
+                text="Delete parameters"
+            />
+        </RadioButtonGroup>
+        <Button id="sub_p" text="Submit"/>
+        <Table id="csvTable_r" items="{/csvData}">
+            <columns>
+                <Column id="_IDGenColumn1">
+                    <Text id="_IDGenText1" text="Userid"/>
+                </Column>
+                <Column id="_IDGenColumn2">
+                    <Text id="_IDGenText2" text="Parameters id"/>
+                </Column>
+                <Column id="_IDGenColumn3">
+                    <Text id="_IDGenText3" text="Value"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem id="_IDGenColumnListItem1">
+                    <cells>
+                        <Text id="text1" text="{USERID}"/>
+                        <Text id="text2" text="{PARAMID}"/>
+                        <Text id="text3" text="{PARAVALUE}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </VBox>
+</mvc:View>
+    

@@ -29,7 +29,42 @@
   .sapUiResponsiveMargin {
     margin: 0 10px;
   }
-  
+  html[dir="ltr"] .myAppDemoWT .myCustomButton.sapMBtn {
+    margin-right: 0.125rem
+ }
+ html[dir="rtl"] .myAppDemoWT .myCustomButton.sapMBtn {
+    margin-left: 0.125rem
+ }
+ .myAppDemoWT .myCustomText {
+    display: inline-block;
+    font-weight: bold;
+ }
+ /*  ProductRating */
+ .myAppDemoWTProductRating {
+    padding: 0.75rem;
+ }
+ .myAppDemoWTProductRating .sapMRI {
+    vertical-align: initial;
+ }
+
+ .sapMITBItem {
+   padding: 0 15px; /* Ajuste l'espace autour des onglets */
+   width: 180px; 
+   
+}
+
+
+.sapMITBFilter .sapMITBText .sapMITHTextContent {
+   display: inline-block;
+    /* max-width: 100%;  */
+    min-width: fit-content;
+   overflow: hidden; 
+   text-overflow: ellipsis;
+   vertical-align: bottom;
+   margin-left: 35px;
+   
+}
+
 
 
   

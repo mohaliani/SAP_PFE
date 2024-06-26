@@ -1,0 +1,32 @@
+<mvc:View
+	controllerName="project1.controller.Overview" 
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true">
+	<Page id="overview" title="Overview">
+		
+        <IconTabBar id="IcontabBar">
+                <items>
+                    <IconTabFilter id="IconTabFilterUsers"
+                        text="Users Management"
+                        key="users"
+                        icon="sap-icon://group">
+                        <content> <mvc:XMLView id="XMLViewU" viewName="project1.view.Users"/> </content> 
+                    </IconTabFilter>
+                    <IconTabFilter id="IconTabFilterRoles"
+                        text="Roles Management"
+                        key="roles"
+                        icon="sap-icon://role">
+                        <mvc:XMLView id="XMLViewR" viewName="project1.view.Roles"/>
+                    </IconTabFilter>
+                    <IconTabFilter id="IconTabFilterParam"
+                        text="Parameters Management"
+                        key="parameters"
+                        icon="sap-icon://settings">
+                        <mvc:XMLView id="XMLViewP" viewName="project1.view.Parameters"/>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+          
+	</Page>
+</mvc:View>

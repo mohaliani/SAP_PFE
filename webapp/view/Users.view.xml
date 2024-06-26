@@ -1,10 +1,10 @@
 <mvc:View xmlns:unified="sap.ui.unified"
-  controllerName="project1.controller.View1"
+  controllerName="project1.controller.Users"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
   xmlns:core="sap.ui.core"
 >
-  <VBox id="mainVBox" class="mainVBox">
+  <VBox id="mainVBox" class="mainVBox" width="1150px">
     <unified:FileUploader id="fileUploader" name="file" placeholder="Upload CSV File" change="onFileUpload" class="fileUploader"/>
     
     <HBox id="buttonHBox" class="buttonHBox">

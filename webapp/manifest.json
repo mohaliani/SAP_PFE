@@ -134,25 +134,28 @@
                 "controlId": "app",
                 "clearControlAggregation": false
             },
-            "routes": [
-                {
-                    "name": "RouteView1",
-                    "pattern": ":?query:",
-                    "target": [
-                        "TargetView1"
-                    ]
-                }
-            ],
-            "targets": {
-                "TargetView1": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "View1",
-                    "viewName": "View1"
-                }
+        
+        "routes": [
+            {
+                "name": "Overview",
+                "target": "OverviewTarget",
+                "pattern": ":?query:"
             }
-        },
+        ],
+        "targets": {
+            "OverviewTarget": {
+                "viewType": "XML",
+                "viewId": "overview",
+                "viewName": "Overview"
+            },
+            "UsersTab": {
+                "parent": "OverviewTarget",
+                "viewType": "XML",
+                "viewId": "idUsersTab",
+                "viewName": "project1.view.Users"
+            }
+        }
+    },
         "rootView": {
             "viewName": "project1.view.App",
             "type": "XML",
