@@ -3,29 +3,14 @@
     controllerName="project1.controller.Parameters"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <VBox id="vboxu">
-        <unified:FileUploader
-            id="fileUploader"
-            width="400px"
-            placeholder="Choose a file for Users parameters"
-            change="onFileChange"
-        />
-        <RadioButtonGroup id="buttons_p" columns="1" >
-            <RadioButton
-                id="button1_p"
-                text="Add parameters"
-            />
-            <RadioButton
-                id="button2_p"
-                text="Modify parameters"
-            />
-            <RadioButton
-                id="button3_p"
-                text="Delete parameters"
-            />
-        </RadioButtonGroup>
-        <Button id="sub_p" text="Submit"/>
-        <Table id="csvTable_r" items="{/csvData}">
+    <VBox id="mainVBox" class="mainVBox">
+    <unified:FileUploader id="fileUploader" name="file" placeholder="Upload CSV File" change="onFileUpload"/>
+    <HBox id="buttonHBox" class="buttonHBox">
+      <Button id="createButton" text="Create" press="onCreate" type="Accept" />
+      <Button id="updateButton" text="Update" press="onUpdate" type="Emphasized" />
+      <Button id="deleteButton" text="Delete" press="onDelete" type="Reject" />
+    </HBox>
+        <Table id="csvTable_r" items="{paramModel>/paramreturn}">
             <columns>
                 <Column id="_IDGenColumn1">
                     <Text id="_IDGenText1" text="Userid"/>
@@ -36,13 +21,17 @@
                 <Column id="_IDGenColumn3">
                     <Text id="_IDGenText3" text="Value"/>
                 </Column>
+                <Column id="_IDGenColumn4">
+            <Label id="_IDGenLabel4" text="Message" />
+          </Column>
             </columns>
             <items>
                 <ColumnListItem id="_IDGenColumnListItem1">
                     <cells>
-                        <Text id="text1" text="{USERID}"/>
-                        <Text id="text2" text="{PARAMID}"/>
-                        <Text id="text3" text="{PARAVALUE}"/>
+                        <Text id="text1" text="{paramModel>userid}"/>
+                        <Text id="text2" text="{paramModel>parid}"/>
+                        <Text id="text3" text="{paramModel>parva}"/>
+                        <Text id="text4" text="{paramModel>message}"/>
                     </cells>
                 </ColumnListItem>
             </items>

@@ -4,7 +4,7 @@
   xmlns="sap.m"
   xmlns:core="sap.ui.core"
 >
-  <VBox id="mainVBox" class="mainVBox" width="1150px">
+  <VBox id="mainVBox" class="mainVBox">
     <unified:FileUploader id="fileUploader" name="file" placeholder="Upload CSV File" change="onFileUpload" class="fileUploader"/>
     
     <HBox id="buttonHBox" class="buttonHBox">
@@ -13,8 +13,7 @@
       <Button id="deleteButton" text="Delete" press="onDelete" type="Reject"/>
     </HBox>
 
-    <ScrollContainer id="scrollContainer" height="500px" vertical="true" horizontal="false" class="sapUiSmallMarginBottom">
-      <Table id="responseTable" items="{userModel>/userreturn}" fixedLayout="false" class="sapUiResponsiveMargin" inset="false" width="auto">
+      <Table id="responseTable" items="{userModel>/userreturn}" >
         <columns>
           <Column id="_IDGenColumn1">
             <Label id="_IDGenLabel1" text="User ID" />
@@ -80,6 +79,5 @@
           </ColumnListItem>
         </items>
       </Table>
-    </ScrollContainer>
   </VBox>
 </mvc:View>

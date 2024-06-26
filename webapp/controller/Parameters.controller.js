@@ -1,51 +1,87 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/unified/FileUploader"
-], function (Controller, MessageToast, JSONModel) {
+    "sap/m/MessageToast"
+], function (Controller, JSONModel, MessageToast) {
     "use strict";
 
-    return Controller.extend("project1.controller.Parameters", {
+    return Controller.extend("project1.controller.Params", {
         onInit: function () {
-            var oModel = new JSONModel({
-                selectedFile: null,
-                csvData: []
+            var oParamModel = new JSONModel({
+                allparams: [],
+                paramreturn: []
             });
-            this.getView().setModel(oModel);
+            this.getView().setModel(oParamModel, "paramModel");
         },
 
-        onFileChange: function (oEvent) {
-            var oFile = oEvent.getParameter("files") && oEvent.getParameter("files")[0];
-            
-            if (oFile) {
+        onFileUpload: function (oEvent) {
+            var oFile = oEvent.getParameter("files")[0];
+            var that = this;
+
+            if (oFile && window.FileReader) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    var sContent = e.target.result;
-                    this._parseCSV(sContent);
-                    MessageToast.show("File uploaded successfully");
-                }.bind(this);
+                    var sCSV = e.target.result;
+                    var aLines = sCSV.split("\n");
+
+                    // Skip the first line (header)
+                    var aParams = aLines.slice(1).map(function (line) {
+                        var aFields = line.split(",");
+                        return {
+                            userid: aFields[0],
+                            parid: aFields[1],
+                            parva: aFields[2],
+                        };
+                    });
+
+                    that.getView().getModel("paramModel").setProperty("/allparams", aParams);
+                };
                 reader.readAsText(oFile);
             }
         },
 
-        _parseCSV: function (sCSV) {
-            var aLines = sCSV.split(/\r?\n/);
-            var aResult = [];
-            var aHeaders = aLines[0].split(',');
+        onCreate: function () {
+            this._sendRequest("Create");
+        },
 
-            for (var i = 1; i < aLines.length; i++) {
-                if (aLines[i].trim() !== "") {
-                    var aData = aLines[i].split(',');
-                    var oRow = {};
-                    for (var j = 0; j < aHeaders.length; j++) {
-                        oRow[aHeaders[j].trim()] = aData[j].trim();
-                    }
-                    aResult.push(oRow);
+        onUpdate: function () {
+            this._sendRequest("Update");
+        },
+
+        onDelete: function () {
+            this._sendRequest("Delete");
+        },
+
+        _sendRequest: function (sAction) {
+            var oModel = this.getView().getModel("paramModel");
+
+            // Clear the params property before sending the request
+            oModel.setProperty("/paramreturn", []);
+
+            var oData = {
+                id: sAction,
+                allparams: oModel.getProperty("/allparams"),
+                paramreturn: oModel.getProperty("/paramreturn")
+
+            };
+
+            // Log the JSON payload to the console
+            console.log("Payload sent to backend:", JSON.stringify(oData, null, 2));
+
+            var oODataModel = this.getView().getModel("Z_CSV_PARAMS_MAINTENANCE_SRV");
+            var that = this;
+            oODataModel.create("/parametersSet", oData, {
+                success: function (response) {
+                    oModel.setProperty("/paramreturn", response.paramreturn.results);
+                    MessageToast.show("Operation successful");
+
+                    // Log params to console
+                    console.log("Response from backend:", response.paramreturn.results);
+                },
+                error: function () {
+                    MessageToast.show("Error in backend communication");
                 }
-            }
-
-            this.getView().getModel().setProperty("/csvData", aResult);
+            });
         }
     });
 });

@@ -11,8 +11,7 @@ sap.ui.define([
         onInit: function () {
             var oRoleModel = new JSONModel({
                 allusers: [],
-                returnmessage: [
-                ]
+                returnmessage: []
                 
             });
             this.getView().setModel(oRoleModel, "roleModel");

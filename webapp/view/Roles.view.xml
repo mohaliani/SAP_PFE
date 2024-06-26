@@ -3,17 +3,13 @@
     controllerName="project1.controller.Roles"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <VBox id="vboxu">
-        <unified:FileUploader
-            id="fileUploader"
-            width="400px"
-            placeholder="Choose a file for Users roles"
-            change="onFileChange"
-        />
-        <HBox id="_IDGenHBox1">
-      <Button id="_IDGenButton1" text="Replace roles" press="onUpdate" />
-      <Button id="_IDGenButton2" text="Assign roles" press="onCreate" />
-      <Button id="_IDGenButton3" text="Delete roles" press="onDelete" />
+    <VBox id="vboxu" class="mainVBox" >
+    <unified:FileUploader id="fileUploader" name="file" placeholder="Upload CSV File" change="onFileChange" class="fileUploader"/>
+    
+    <HBox id="buttonHBox" class="buttonHBox">
+      <Button id="createButton" text="Replace" press="onCreate" type="Accept"/>
+      <Button id="updateButton" text="Assign" press="onUpdate" type="Emphasized"/>
+      <Button id="deleteButton" text="Delete" press="onDelete" type="Reject"/>
     </HBox>
         
         <Table id="csvTable_r" items="{roleModel>/returnmessage}" >
