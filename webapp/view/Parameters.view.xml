@@ -12,16 +12,16 @@
     </HBox>
         <Table id="csvTable_r" items="{paramModel>/paramreturn}" autoPopinMode="true">
             <columns>
-                <Column id="_IDGenColumn1" hAlign="Center" importance="High" width="10%">
+                <Column id="_IDGenColumn1" hAlign="Begin" importance="High" width="10%">
                     <Text id="_IDGenText1" text="Userid"/>
                 </Column>
-                <Column id="_IDGenColumn2" hAlign="Center" importance="Medium" width="20%">
+                <Column id="_IDGenColumn2" hAlign="Begin" importance="Medium" width="20%">
                     <Text id="_IDGenText2" text="Parameters id"/>
                 </Column>
-                <Column id="_IDGenColumn3" hAlign="Center" importance="Low" width="20%">
+                <Column id="_IDGenColumn3" hAlign="Begin" importance="Low" width="20%">
                     <Text id="_IDGenText3" text="Value"/>
                 </Column>
-                <Column id="_IDGenColumn4" hAlign="Center" importance="High" width="50%">
+                <Column id="_IDGenColumn4" hAlign="Begin" importance="High" width="50%">
             <Label id="_IDGenLabel4" text="Message" />
           </Column>
             </columns>

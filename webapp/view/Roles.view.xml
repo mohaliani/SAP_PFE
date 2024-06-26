@@ -14,19 +14,19 @@
         
         <Table id="csvTable_r" items="{roleModel>/returnmessage}" autoPopinMode="true">
             <columns>
-                <Column id="_IDGenColumn1" width="10%" hAlign="Center" importance="High">
+                <Column id="_IDGenColumn1" width="10%" hAlign="Begin" importance="High">
                     <Text id="_IDGenText1" text="Userid"/>
                 </Column>
-                <Column id="_IDGenColumn2" width="30%" hAlign="Center" importance="Medium">
+                <Column id="_IDGenColumn2" width="30%" hAlign="Begin" importance="Medium">
                     <Text id="_IDGenText2" text="Role id" />
                 </Column>
-                <Column id="_IDGenColumn3" width="10%" hAlign="Center" importance="Low">
+                <Column id="_IDGenColumn3" width="10%" hAlign="Begin" importance="Low">
                     <Text id="_IDGenText3" text="Start date"/>
                 </Column>
-                <Column id="_IDGenColumn4" width="10%" hAlign="Center" importance="Low">
+                <Column id="_IDGenColumn4" width="10%" hAlign="Begin" importance="Low">
                     <Text id="_IDGenText4" text="End date"/>
                 </Column>
-                <Column id="_IDGenColumn5" width="40%" hAlign="Center" importance="High">
+                <Column id="_IDGenColumn5" width="40%" hAlign="Begin" importance="High">
                     <Text id="_IDGenText5" text="Message"/>
                 </Column>
             </columns>

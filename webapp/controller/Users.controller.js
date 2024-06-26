@@ -1,8 +1,10 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
+    'sap/ui/export/library',
+    "sap/ui/export/Spreadsheet",
     "sap/m/MessageToast"
-], function (Controller, JSONModel, MessageToast) {
+], function (Controller,  JSONModel, exportLibrary, Spreadsheet, MessageToast) {
     "use strict";
 
     return Controller.extend("project1.controller.Main", {
@@ -125,6 +127,42 @@ sap.ui.define([
 
         _padZero: function (value) {
             return value.toString().padStart(2, '0');
-        }
+        },
+
+        onExport: function() {
+      var oTable = this.byId("responseTable");
+      var oModel = oTable.getModel("userModel");
+      var aData = oModel.getProperty("/userreturn");
+
+      var aCols = [
+        { label: "User ID", property: "userid", type: "string" },
+        { label: "First Name", property: "firstname", type: "string" },
+        { label: "Last Name", property: "lastname", type: "string" },
+        { label: "Email", property: "email", type: "string" },
+        { label: "Password", property: "password", type: "string" },
+        { label: "Language", property: "langup", type: "string" },
+        { label: "Date From", property: "datefrom", type: "string" },
+        { label: "Date To", property: "dateto", type: "string" },
+        { label: "User Group", property: "usergrp", type: "string" },
+        { label: "Output Device", property: "spld", type: "string" },
+        { label: "Communication Type", property: "commtype", type: "string" },
+        { label: "Decimal", property: "dcpfm", type: "string" },
+        { label: "Company", property: "company", type: "string" },
+        { label: "Message", property: "message", type: "string" }
+      ];
+
+      var oSettings = {
+        workbook: { columns: aCols },
+        dataSource: aData,
+        fileName: "User_Data.xlsx"
+      };
+
+      var oSheet = new Spreadsheet(oSettings);
+      oSheet.build().then(function() {
+        sap.m.MessageToast.show("Spreadsheet export has finished");
+      }).finally(function() {
+        oSheet.destroy();
+      });
+    }
     });
 });
