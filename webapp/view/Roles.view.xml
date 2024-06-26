@@ -4,7 +4,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
     <VBox id="vboxu" class="mainVBox" >
-    <unified:FileUploader id="fileUploader" name="file" placeholder="Upload CSV File" change="onFileChange" class="fileUploader"/>
+    <unified:FileUploader id="fileUploader" name="file" placeholder="Upload CSV File" change="onFileChange" class="fileUploader" fileType="CSV" />
     
     <HBox id="buttonHBox" class="buttonHBox">
       <Button id="createButton" text="Replace" press="onCreate" type="Accept"/>
@@ -12,36 +12,32 @@
       <Button id="deleteButton" text="Delete" press="onDelete" type="Reject"/>
     </HBox>
         
-        <Table id="csvTable_r" items="{roleModel>/returnmessage}" >
+        <Table id="csvTable_r" items="{roleModel>/returnmessage}" autoPopinMode="true">
             <columns>
-                <Column id="_IDGenColumn1" width="80px">
-                    <Text id="_IDGenText1" text="Icon"/>
+                <Column id="_IDGenColumn1" width="10%" hAlign="Center" importance="High">
+                    <Text id="_IDGenText1" text="Userid"/>
                 </Column>
-                <Column id="_IDGenColumn2" width="80px">
-                    <Text id="_IDGenText2" text="Userid"/>
+                <Column id="_IDGenColumn2" width="30%" hAlign="Center" importance="Medium">
+                    <Text id="_IDGenText2" text="Role id" />
                 </Column>
-                <Column id="_IDGenColumn3">
-                    <Text id="_IDGenText3" text="Role id" />
+                <Column id="_IDGenColumn3" width="10%" hAlign="Center" importance="Low">
+                    <Text id="_IDGenText3" text="Start date"/>
                 </Column>
-                <Column id="_IDGenColumn4">
-                    <Text id="_IDGenText4" text="Start date"/>
+                <Column id="_IDGenColumn4" width="10%" hAlign="Center" importance="Low">
+                    <Text id="_IDGenText4" text="End date"/>
                 </Column>
-                <Column id="_IDGenColumn5">
-                    <Text id="_IDGenText5" text="End date"/>
-                </Column>
-                <Column id="_IDGenColumn6" width="230px">
-                    <Text id="_IDGenText6" text="Message"/>
+                <Column id="_IDGenColumn5" width="40%" hAlign="Center" importance="High">
+                    <Text id="_IDGenText5" text="Message"/>
                 </Column>
             </columns>
             <items>
                 <ColumnListItem id="_IDGenColumnListItem1">
                     <cells>
-                        <Text id="text7" text="{roleModel>Icon}"/>
-                        <Text id="text2" text="{roleModel>Userid}"/>
-                        <Text id="text3" text="{roleModel>Role}"/>
-                        <Text id="text4" text="{roleModel>Datefrom}"/>
-                        <Text id="text5" text="{roleModel>Dateto}"/>
-                        <Text id="text6" text="{roleModel>Message}"/>
+                        <Text id="text1" text="{roleModel>Userid}"/>
+                        <Text id="text2" text="{roleModel>Role}"/>
+                        <Text id="text3" text="{roleModel>Datefrom}"/>
+                        <Text id="text4" text="{roleModel>Dateto}"/>
+                        <Text id="text5" text="{roleModel>Message}"/>
                     </cells>
                 </ColumnListItem>
             </items>

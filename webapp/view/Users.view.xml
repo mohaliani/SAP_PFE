@@ -4,57 +4,57 @@
   xmlns="sap.m"
   xmlns:core="sap.ui.core"
 >
-  <VBox id="mainVBox" class="mainVBox">
-    <unified:FileUploader id="fileUploader" name="file" placeholder="Upload CSV File" change="onFileUpload" class="fileUploader"/>
+  <VBox id="mainVBox" class="mainVBox" >
+    <unified:FileUploader id="fileUploader" name="file" placeholder="Upload CSV File" change="onFileUpload" class="fileUploader" fileType="CSV" />
     
-    <HBox id="buttonHBox" class="buttonHBox">
+    <HBox id="buttonHBox" class="buttonHBox" >
       <Button id="createButton" text="Create" press="onCreate" type="Accept"/>
       <Button id="updateButton" text="Update" press="onUpdate" type="Emphasized"/>
       <Button id="deleteButton" text="Delete" press="onDelete" type="Reject"/>
     </HBox>
 
-      <Table id="responseTable" items="{userModel>/userreturn}" >
+      <Table id="responseTable" items="{userModel>/userreturn}" autoPopinMode="true">
         <columns>
-          <Column id="_IDGenColumn1">
+          <Column id="_IDGenColumn1" hAlign="Center" importance="High" width="5%">
             <Label id="_IDGenLabel1" text="User ID" />
           </Column>
-          <Column id="_IDGenColumn2">
-            <Label id="_IDGenLabel2" text="First Name" />
+          <Column id="_IDGenColumn2" hAlign="Center" width="10%">
+            <Label id="_IDGenLabel2" text="First Name"  />
           </Column>
-          <Column id="_IDGenColumn3">
+          <Column id="_IDGenColumn3" hAlign="Center" width="10%">
             <Label id="_IDGenLabel3" text="Last Name" />
           </Column>
-          <Column id="_IDGenColumn4">
+          <Column id="_IDGenColumn4" hAlign="Center" width="20%">
             <Label id="_IDGenLabel4" text="Email" />
           </Column>
-          <Column id="_IDGenColumn5">
+          <Column id="_IDGenColumn5" hAlign="Center">
             <Label id="_IDGenLabel5" text="Password" />
           </Column>
-          <Column id="_IDGenColumn6">
+          <Column id="_IDGenColumn6" hAlign="Center">
             <Label id="_IDGenLabel6" text="Language" />
           </Column>
-          <Column id="_IDGenColumn7">
-            <Label id="_IDGenLabel7" text="Date From" />
+          <Column id="_IDGenColumn7" hAlign="Center" importance="Medium" width="15%">
+            <Label id="_IDGenLabel7" text="Date From"  />
           </Column>
-          <Column id="_IDGenColumn8">
+          <Column id="_IDGenColumn8" hAlign="Center" importance="Medium" width="15%">
             <Label id="_IDGenLabel8" text="Date To" />
           </Column>
-          <Column id="_IDGenColumn9">
+          <Column id="_IDGenColumn9" hAlign="Center">
             <Label id="_IDGenLabel9" text="User Group" />
           </Column>
-          <Column id="_IDGenColumn10">
+          <Column id="_IDGenColumn10" hAlign="Center">
             <Label id="_IDGenLabel10" text="Output Device" />
           </Column>
-          <Column id="_IDGenColumn11">
+          <Column id="_IDGenColumn11" hAlign="Center">
             <Label id="_IDGenLabel11" text="Communication Type" />
           </Column>
-          <Column id="_IDGenColumn12">
+          <Column id="_IDGenColumn12" hAlign="Center">
             <Label id="_IDGenLabel12" text="Decimal" />
           </Column>
-          <Column id="_IDGenColumn13">
+          <Column id="_IDGenColumn13" hAlign="Center">
             <Label id="_IDGenLabel13" text="Company" />
           </Column>
-          <Column id="_IDGenColumn14">
+          <Column id="_IDGenColumn14" hAlign="Center" importance="High" width="25%">
             <Label id="_IDGenLabel14" text="Message" />
           </Column>
         </columns>
