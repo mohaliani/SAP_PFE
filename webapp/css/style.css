@@ -7,13 +7,9 @@
     align-items: center;
   }
 
-
 .sapMITBHead{
-  justify-content: center;
-  align-items: center;
   text-align: center;
 }
-
 
   /* Center content within IconTabFilter */
 .sapMITBContent .sapMITBText {
@@ -80,7 +76,6 @@
    margin-left: 35px;
    
 }
-
 
 .detailsVBox {
   padding: 20px;
