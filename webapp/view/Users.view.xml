@@ -40,7 +40,11 @@
             <Text id="_IDGenText1" text="{userModel>userid}" />
             <Text id="_IDGenText2" text="{userModel>datefrom}" />
             <Text id="_IDGenText3" text="{userModel>dateto}" />
-            <Text id="_IDGenText4" text="{userModel>message}" />
+             <ObjectStatus 
+                          id="objectStatus" 
+                          state="{= ${userModel>icon} === 'red' ? 'Error' : ${userModel>icon} === 'grn' ? 'Success' : 'None'}" 
+                           text="{userModel>message}" 
+                         />
           </cells>
         </ColumnListItem>
       </items>

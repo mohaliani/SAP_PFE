@@ -37,7 +37,11 @@
                         <Text id="text1" text="{paramModel>userid}"/>
                         <Text id="text2" text="{paramModel>parid}"/>
                         <Text id="text3" text="{paramModel>parva}"/>
-                        <Text id="text4" text="{paramModel>message}"/>
+                        <ObjectStatus 
+                          id="objectStatus" 
+                          state="{= ${paramModel>icon} === 'red' ? 'Error' : ${paramModel>icon} === 'grn' ? 'Success' : 'None'}" 
+                           text="{paramModel>message}" 
+                         />
                     </cells>
                 </ColumnListItem>
             </items>

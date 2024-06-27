@@ -43,7 +43,11 @@
                         <Text id="text2" text="{roleModel>Role}"/>
                         <Text id="text3" text="{roleModel>Datefrom}"/>
                         <Text id="text4" text="{roleModel>Dateto}"/>
-                        <Text id="text5" text="{roleModel>Message}"/>
+                        <ObjectStatus 
+                          id="objectStatus" 
+                          state="{= ${roleModel>Icon} === 'red' ? 'Error' : ${roleModel>Icon} === 'grn' ? 'Success' : 'None'}" 
+                           text="{roleModel>Message}" 
+                         />
                     </cells>
                 </ColumnListItem>
             </items>
