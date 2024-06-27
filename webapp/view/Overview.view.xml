@@ -5,9 +5,9 @@
 	displayBlock="true">
 	<Page id="overview" title="Overview">
 		
-        <IconTabBar id="IcontabBar">
-                <items>
-                    <IconTabFilter id="IconTabFilterUsers"
+        <IconTabBar id="IcontabBar" class="centeredIconTabBar" >
+                <items >
+                    <IconTabFilter id="IconTabFilterUsers" 
                         text="Users Management"
                         key="users"
                         icon="sap-icon://group">

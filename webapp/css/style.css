@@ -6,7 +6,23 @@
     flex-direction: column;
     align-items: center;
   }
-  
+
+
+.sapMITBHead{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+  /* Center content within IconTabFilter */
+.sapMITBContent .sapMITBText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 4àpx;
+}
+
   .buttonHBox {
     margin-bottom: 20px;
     display: flex;
