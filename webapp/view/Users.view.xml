@@ -111,4 +111,5 @@
       <Button id="_IDGenButton2" text="Close" press="onCloseDialog" />
     </buttons>
   </Dialog>
+  <BusyDialog id="busyDialog" />
 </mvc:View>

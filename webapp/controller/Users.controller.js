@@ -2,8 +2,9 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
     "sap/ui/export/Spreadsheet",
-    "sap/m/MessageToast"
-], function (Controller,  JSONModel, Spreadsheet, MessageToast) {
+    "sap/m/MessageToast",
+    "sap/m/BusyDialog"
+], function (Controller,  JSONModel, Spreadsheet, MessageToast, BusyDialog) {
     "use strict";
 
     return Controller.extend("project1.controller.Main", {
@@ -13,6 +14,7 @@ sap.ui.define([
                 userreturn: []
             });
             this.getView().setModel(oUserModel, "userModel");
+            this._oBusyDialog = this.byId("busyDialog");
         },
 
         onFileUpload: function (oEvent) {
@@ -92,6 +94,7 @@ sap.ui.define([
 
             var oODataModel = this.getView().getModel();
             var that = this;
+            this._oBusyDialog.open();
             oODataModel.create("/usersSet", oData, {
                 success: function (response) {
                     var formattedUserReturn = response.userreturn.results.map(function (item) {
@@ -106,6 +109,7 @@ sap.ui.define([
 
                     // Log userreturn to console
                     console.log("Response from backend:", formattedUserReturn);
+                    that._oBusyDialog.close();
                 },
                 error: function () {
                     MessageToast.show("Error in backend communication");

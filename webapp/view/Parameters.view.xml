@@ -43,5 +43,6 @@
             </items>
         </Table>
     </VBox>
+    <BusyDialog id="busyDialog" />
 </mvc:View>
     

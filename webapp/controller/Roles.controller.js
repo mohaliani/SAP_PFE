@@ -3,9 +3,10 @@ sap.ui.define([
     "sap/m/MessageToast",
     "sap/ui/export/Spreadsheet",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/unified/FileUploader"
+    "sap/ui/unified/FileUploader",
+    "sap/m/BusyDialog" 
     
-], function (Controller, MessageToast,Spreadsheet, JSONModel) {
+], function (Controller, MessageToast,Spreadsheet, JSONModel, BusyDialog) {
     "use strict";
 
     return Controller.extend("project1.controller.Roles", {
@@ -17,6 +18,8 @@ sap.ui.define([
                 
             });
             this.getView().setModel(oRoleModel, "roleModel");
+
+            this._oBusyDialog = this.byId("busyDialog");
         },
 
         
@@ -84,7 +87,8 @@ sap.ui.define([
         onDelete: function () {
             this._sendRequest("Delete_r");
         },
- 
+        
+            
         _sendRequest: function (sAction) {
             var oModel = this.getView().getModel("roleModel");
             oModel.setProperty("/returnmessage", []);
@@ -99,22 +103,10 @@ sap.ui.define([
  
             // Log the JSON payload to the console
             console.log("Payload sent to backend:", JSON.stringify(oData, null, 2));
-            
+            this._oBusyDialog.open();
             var oODataModel = this.getView().getModel("ZODATA_ROLES_MGT_SRV");
             var that = this;
-            // oODataModel.create("/headerSet", oData, {
-            //     success: function (response) {
-            //         oModel.setProperty("/returnmessage", response.returnmessage.results);
-            //         MessageToast.show("Operation successful");
- 
-            //         // Log userreturn to console
-            //         console.log("Response from backend:", response.returnmessage.results);
-            //     },
-            //     error: function () {
-            //         MessageToast.show("Error in backend communication");
-            //     }
-            // });
-
+            
             oODataModel.create("/headerSet", oData, {
                 success: function (response) {
                     var formattedRoleReturn = response.returnmessage.results.map(function (item) {
@@ -132,12 +124,13 @@ sap.ui.define([
                         };
 
                     });
-                    debugger;
+                    
                     oModel.setProperty("/returnmessage", formattedRoleReturn);
                     MessageToast.show("Operation successful");
 
                     // Log rolereturn to console
                     console.log("Response from backend:", formattedRoleReturn);
+                    that._oBusyDialog.close();
                 },
                 error: function () {
                     MessageToast.show("Error in backend communication");

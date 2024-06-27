@@ -2,8 +2,9 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
     "sap/ui/export/Spreadsheet",
-    "sap/m/MessageToast"
-], function (Controller, JSONModel, Spreadsheet, MessageToast) {
+    "sap/m/MessageToast",
+    "sap/m/BusyDialog" 
+], function (Controller, JSONModel, Spreadsheet, MessageToast, BusyDialog) {
     "use strict";
 
     return Controller.extend("project1.controller.Params", {
@@ -13,6 +14,7 @@ sap.ui.define([
                 paramreturn: []
             });
             this.getView().setModel(oParamModel, "paramModel");
+            this._oBusyDialog = this.byId("busyDialog");
         },
 
         onFileUpload: function (oEvent) {
@@ -68,7 +70,7 @@ sap.ui.define([
 
             // Log the JSON payload to the console
             console.log("Payload sent to backend:", JSON.stringify(oData, null, 2));
-
+            this._oBusyDialog.open();
             var oODataModel = this.getView().getModel("Z_CSV_PARAMS_MAINTENANCE_SRV");
             var that = this;
             oODataModel.create("/parametersSet", oData, {
@@ -78,6 +80,7 @@ sap.ui.define([
 
                     // Log params to console
                     console.log("Response from backend:", response.paramreturn.results);
+                    that._oBusyDialog.close();
                 },
                 error: function () {
                     MessageToast.show("Error in backend communication");
