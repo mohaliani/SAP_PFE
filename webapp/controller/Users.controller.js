@@ -162,6 +162,37 @@ sap.ui.define([
       }).finally(function() {
         oSheet.destroy();
       });
+    },
+
+    onSelectionChange: function (oEvent) {
+      var oTable = oEvent.getSource();
+      var oSelectedItem = oTable.getSelectedItem();
+      if (oSelectedItem) {
+        var oBindingContext = oSelectedItem.getBindingContext("userModel");
+
+        this._getDetailsDialog().bindElement({
+          path: oBindingContext.getPath(),
+          model: "userModel"
+        });
+        this._getDetailsDialog().open();
+      }
+    },
+
+    _getDetailsDialog: function () {
+      if (!this._oDialog) {
+        this._oDialog = this.byId("detailsDialog");
+        if (!this._oDialog) {
+          // Load asynchronous XML fragment
+          this._oDialog = sap.ui.xmlfragment(this.getView().getId(), "project1.view.DetailsDialog", this);
+          this.getView().addDependent(this._oDialog);
+        }
+      }
+      return this._oDialog;
+    },
+
+    onCloseDialog: function () {
+      this._getDetailsDialog().close();
     }
+
     });
 });
