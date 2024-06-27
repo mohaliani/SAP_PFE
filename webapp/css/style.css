@@ -66,5 +66,24 @@
 }
 
 
+.detailsVBox {
+  padding: 20px;
+  background-color: #ebf8ff;
+  border-radius: 8px;
+}
+
+.detailsVBox .detailItem {
+  margin-bottom: 10px;
+}
+
+.detailsVBox .detailLabel {
+  font-weight: bold;
+  display: inline-block;
+  width: 150px;
+}
+
+.detailsVBox .detailText {
+  display: inline-block;
+}
 
   
