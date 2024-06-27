@@ -1,8 +1,9 @@
-<mvc:View xmlns:smarttable="sap.ui.comp.smarttable"
+<mvc:View 
     xmlns:unified="sap.ui.unified"
     controllerName="project1.controller.Roles"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    >
     <VBox id="vboxu">
         <unified:FileUploader
             id="fileUploader"
@@ -44,8 +45,13 @@
                         <Text id="text2" text="{roleModel>Userid}"/>
                         <Text id="text3" text="{roleModel>Role}"/>
                         <Text id="text4" text="{roleModel>Datefrom}"/>
-                        <Text id="text5" text="{roleModel>Dateto}"/>
-                        <Text id="text6" text="{roleModel>Message}"/>
+                        <Text id="text5" text="{roleModel>Dateto}"/> 
+                         <!-- <Text id="text6" text="{roleModel>Message}"/>   -->
+                         <!-- <Text id="_IDGenText7" text="{roleModel>Message}" class="{ path: 'roleModel>Icon', 
+                         formatter: 'formatter.messagecolor'}" /> -->
+                         <!-- <Text id="_IDGenText7" text="{roleModel>Message}" class="{= ${roleModel>Icon} === 'red' ? 'redMessage' : (${roleModel>Icon} === 'grn' ? 'greenMessage' : '') }"/> -->
+                         <Text id="text6" text="{roleModel>Message}"
+                            class="{path: 'roleModel>Icon', formatter: '.getMessageColor'}"/>
                     </cells>
                 </ColumnListItem>
             </items>

@@ -2,18 +2,21 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/unified/FileUploader"
-], function (Controller, MessageToast, JSONModel) {
+    "sap/ui/unified/FileUploader",
+    "../model/formatter"
+], function (Controller, MessageToast, JSONModel, formatter) {
     "use strict";
 
     return Controller.extend("project1.controller.Roles", {
+        formatter: formatter,
+
 
         onInit: function () {
             var oRoleModel = new JSONModel({
                 allusers: [],
                 returnmessage: [
                 ]
-                
+                  
             });
             this.getView().setModel(oRoleModel, "roleModel");
         },
@@ -105,12 +108,7 @@ sap.ui.define([
             oODataModel.create("/headerSet", oData, {
                 success: function (response) {
                     var formattedRoleReturn = response.returnmessage.results.map(function (item) {
-                        var formattedDateFrom = that._formatDateFromBackend(item.Datefrom);
-                        var formattedDateTo = that._formatDateFromBackend(item.Dateto);
-
-                        // Log formatted dates from backend
-                        console.log("Formatted datefrom from backend:", formattedDateFrom);
-                        console.log("Formatted dateto from backend:", formattedDateTo);
+                        
 
                         return {
                             ...item,
@@ -130,17 +128,16 @@ sap.ui.define([
                 }
             });
         },
+       
 
         _formatDateFromBackend: function (sDate) {
-            // Log the date received from backend
-            console.log("Date received from backend (in _formatDateFromBackend):", sDate);
         
             if (sDate) {
                 var oDate = new Date(sDate);
                 var sFormattedDate = oDate.getFullYear() + "-" + this._padZero(oDate.getMonth() + 1) + "-" + this._padZero(oDate.getDate());
         
                 // Log formatted date from backend
-                console.log("Formatted date from backend (in _formatDateFromBackend):", sFormattedDate);
+                
         
                 return sFormattedDate;
             } else {
@@ -150,8 +147,17 @@ sap.ui.define([
 
         _padZero: function (value) {
             return value.toString().padStart(2, '0');
+        },
+
+        getMessageColor: function (Icon) {
+            if (Icon === "red") {
+                return "color: red;";
+            } else if (Icon === "grn") {
+                return "color: green;";
+            } else {
+                return "color: black;";
+            }
         }
-        
     });
 });
      

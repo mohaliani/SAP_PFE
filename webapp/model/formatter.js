@@ -1,19 +1,31 @@
-// formatter.js
-sap.ui.define([], function() {
-    "use strict";
-  
-    return {
-      formatDate: function(sDate) {
-        if (!sDate) {
-          return "";
-        }
-  
-        var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
-          pattern: "yyyy-MM-dd"
-        });
-  
-        return oDateFormat.format(new Date(sDate));
+sap.ui.define([], () => {
+  "use strict";
+  return {
+      messagecolor : function( sIcon) {
+          if (sIcon === 'red') {
+              return "redMessage";
+          } else if ( sIcon === "grn") {
+              return "greenMessage";
+          } else {
+              return "";
+          }
       }
-    };
-  });
-  
+  };
+});
+
+
+// sap.ui.define([], () => {
+//   "use strict";
+//   return {
+//     messageColor: function(sIcon, sMessage) {
+//         var cssClass = '';
+//         if (sIcon === 'red') {
+//             cssClass = 'redMessage';
+//         } else if (sIcon === 'grn') {
+//             cssClass = 'greenMessage';
+//         }
+//         return '<span class="' + cssClass + '">' + sMessage + '</span>';
+//     }
+//   };
+// });
+

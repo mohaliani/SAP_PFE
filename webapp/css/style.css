@@ -53,6 +53,14 @@
    
 }
 
+.redMessage {
+  color: red !important;
+  
+}
+
+.greenMessage {
+  color: green !important;
+}
 
 .sapMITBFilter .sapMITBText .sapMITHTextContent {
    display: inline-block;
