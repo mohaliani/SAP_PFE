@@ -1,9 +1,11 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
+    "sap/ui/export/Spreadsheet",
     "sap/ui/model/json/JSONModel",
     "sap/ui/unified/FileUploader"
-], function (Controller, MessageToast, JSONModel) {
+    
+], function (Controller, MessageToast,Spreadsheet, JSONModel) {
     "use strict";
 
     return Controller.extend("project1.controller.Roles", {
@@ -173,7 +175,34 @@ sap.ui.define([
 
         _padZero: function (value) {
             return value.toString().padStart(2, '0');
-        }
+        },
+
+        onExport: function() {
+            var oTable = this.byId("csvTable_r");
+            var oModel = oTable.getModel("roleModel");
+            var aData = oModel.getProperty("/returnmessage");
+      
+            var aCols = [
+              { label: "User ID", property: "Userid", type: "string" },
+              { label: "Role Name", property: "Role", type: "string" },
+              { label: "Date From", property: "Datefrom", type: "string" },
+              { label: "Date To", property: "Dateto", type: "string" },
+              { label: "Message", property: "Message", type: "string" }
+            ];
+      
+            var oSettings = {
+              workbook: { columns: aCols },
+              dataSource: aData,
+              fileName: "Role_Data.xlsx"
+            };
+      
+            var oSheet = new Spreadsheet(oSettings);
+            oSheet.build().then(function() {
+              sap.m.MessageToast.show("Spreadsheet export has finished");
+            }).finally(function() {
+              oSheet.destroy();
+            });
+          }
         
     });
 });

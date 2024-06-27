@@ -11,6 +11,12 @@
       <Button id="deleteButton" text="Delete" press="onDelete" type="Reject" />
     </HBox>
         <Table id="csvTable_r" items="{paramModel>/paramreturn}" autoPopinMode="true">
+        <headerToolbar>
+				<OverflowToolbar id="_IDGenOverflowToolbar1">
+					<ToolbarSpacer id="_IDGenToolbarSpacer1" />
+					<Button id="_IDGenButton1" icon="sap-icon://excel-attachment" press="onExport"/>
+				</OverflowToolbar>
+			</headerToolbar>
             <columns>
                 <Column id="_IDGenColumn1" hAlign="Begin" importance="High" width="10%">
                     <Text id="_IDGenText1" text="Userid"/>

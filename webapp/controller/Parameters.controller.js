@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
+    "sap/ui/export/Spreadsheet",
     "sap/m/MessageToast"
-], function (Controller, JSONModel, MessageToast) {
+], function (Controller, JSONModel, Spreadsheet, MessageToast) {
     "use strict";
 
     return Controller.extend("project1.controller.Params", {
@@ -82,6 +83,32 @@ sap.ui.define([
                     MessageToast.show("Error in backend communication");
                 }
             });
-        }
+        },
+
+        onExport: function() {
+            var oTable = this.byId("csvTable_r");
+            var oModel = oTable.getModel("paramModel");
+            var aData = oModel.getProperty("/paramreturn");
+      
+            var aCols = [
+              { label: "User ID", property: "userid", type: "string" },
+              { label: "Param ID", property: "parid", type: "string" },
+              { label: "Param value", property: "parva", type: "string" },
+              { label: "Message", property: "message", type: "string" }
+            ];
+      
+            var oSettings = {
+              workbook: { columns: aCols },
+              dataSource: aData,
+              fileName: "Param_Data.xlsx"
+            };
+      
+            var oSheet = new Spreadsheet(oSettings);
+            oSheet.build().then(function() {
+              sap.m.MessageToast.show("Spreadsheet export has finished");
+            }).finally(function() {
+              oSheet.destroy();
+            });
+          }
     });
 });

@@ -1,10 +1,9 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-    'sap/ui/export/library',
     "sap/ui/export/Spreadsheet",
     "sap/m/MessageToast"
-], function (Controller,  JSONModel, exportLibrary, Spreadsheet, MessageToast) {
+], function (Controller,  JSONModel, Spreadsheet, MessageToast) {
     "use strict";
 
     return Controller.extend("project1.controller.Main", {
