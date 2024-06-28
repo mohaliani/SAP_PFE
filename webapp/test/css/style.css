@@ -97,11 +97,13 @@
   display: inline-block;
 }
 
-.sapMObjStatusSuccess .sapMObjStatusText {
-  color: #2cba2e;
+/* Custom CSS for ObjectStatus with Error state */
+.customError .sapMObjStatusState {
+  color: #ff0000 !important; /* Custom red color */
 }
 
-.sapMObjStatusError .sapMObjStatusText {
-  color: #e01919;
+/* Custom CSS for ObjectStatus with Success state */
+.customSuccess .sapMObjStatusState {
+  color: #45fdeb !important; /* Custom green color */
 }
   

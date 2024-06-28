@@ -4,9 +4,12 @@ sap.ui.define([
     "sap/ui/export/Spreadsheet",
     "sap/ui/model/json/JSONModel",
     "sap/ui/unified/FileUploader",
-    "sap/m/BusyDialog" 
+    "sap/m/BusyDialog",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/ui/model/Sorter"
     
-], function (Controller, MessageToast,Spreadsheet, JSONModel, BusyDialog) {
+], function (Controller, MessageToast,Spreadsheet, JSONModel, BusyDialog, Filter, FilterOperator, Sorter) {
     "use strict";
 
     return Controller.extend("project1.controller.Roles", {
@@ -88,7 +91,6 @@ sap.ui.define([
             this._sendRequest("Delete_r");
         },
         
-            
         _sendRequest: function (sAction) {
             var oModel = this.getView().getModel("roleModel");
             oModel.setProperty("/returnmessage", []);
@@ -110,12 +112,7 @@ sap.ui.define([
             oODataModel.create("/headerSet", oData, {
                 success: function (response) {
                     var formattedRoleReturn = response.returnmessage.results.map(function (item) {
-                        var formattedDateFrom = that._formatDateFromBackend(item.Datefrom);
-                        var formattedDateTo = that._formatDateFromBackend(item.Dateto);
-
-                        // Log formatted dates from backend
-                        console.log("Formatted datefrom from backend:", formattedDateFrom);
-                        console.log("Formatted dateto from backend:", formattedDateTo);
+                        
 
                         return {
                             ...item,
@@ -138,27 +135,13 @@ sap.ui.define([
             });
         },
 
-        // _formatDateFromBackend: function (sDate) {
-        //     // Assuming sDate is in the format returned from backend
-        //     if (sDate) {
-        //         var oDate = new Date(sDate);
-        //         var sFormattedDate = oDate.getFullYear() + "-" + this._padZero(oDate.getMonth() + 1) + "-" + this._padZero(oDate.getDate());
-        //         return sFormattedDate;
-        //     } else {
-        //         return null; // Return null or some default value if the date is invalid
-        //     }
-        // },
-
         _formatDateFromBackend: function (sDate) {
-            // Log the date received from backend
-            console.log("Date received from backend (in _formatDateFromBackend):", sDate);
         
             if (sDate) {
                 var oDate = new Date(sDate);
                 var sFormattedDate = oDate.getFullYear() + "-" + this._padZero(oDate.getMonth() + 1) + "-" + this._padZero(oDate.getDate());
         
-                // Log formatted date from backend
-                console.log("Formatted date from backend (in _formatDateFromBackend):", sFormattedDate);
+                
         
                 return sFormattedDate;
             } else {
@@ -195,7 +178,27 @@ sap.ui.define([
             }).finally(function() {
               oSheet.destroy();
             });
-          }
+          },
+          onSearch: function (oEvent) {
+            var sQuery = oEvent.getParameter("query");
+            var aFilters = [];
+        
+            if (sQuery) {
+                var aFilterFields = ["Userid", "Role", "Datefrom", "Dateto", "Message"];
+                var aSubFilters = aFilterFields.map(function(field) {
+                    return new sap.ui.model.Filter(field, sap.ui.model.FilterOperator.Contains, sQuery);
+                });
+        
+                aFilters = new sap.ui.model.Filter({
+                    filters: aSubFilters,
+                    and: false
+                });
+            }
+        
+            var oTable = this.byId("csvTable_r");
+            var oBinding = oTable.getBinding("items");
+            oBinding.filter(aFilters);
+        }
         
     });
 });
