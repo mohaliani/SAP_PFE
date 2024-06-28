@@ -196,7 +196,28 @@ sap.ui.define([
 
     onCloseDialog: function () {
       this._getDetailsDialog().close();
-    }
+    },
+    onSearch: function (oEvent) {
+      var sQuery = oEvent.getParameter("query");
+      var aFilters = [];
+  
+      if (sQuery) {
+          var aFilterFields = ["userid", "firstname", "lastname", "email", "password", "langup", "datefrom",
+                              "dateto", "usergrp", "spld", "commtype", "dcpfm", "company", "message"];
+          var aSubFilters = aFilterFields.map(function(field) {
+              return new sap.ui.model.Filter(field, sap.ui.model.FilterOperator.Contains, sQuery);
+          });
+  
+          aFilters = new sap.ui.model.Filter({
+              filters: aSubFilters,
+              and: false
+          });
+      }
+  
+      var oTable = this.byId("responseTable");
+      var oBinding = oTable.getBinding("items");
+      oBinding.filter(aFilters);
+  }
 
     });
 });

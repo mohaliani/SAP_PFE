@@ -112,6 +112,26 @@ sap.ui.define([
             }).finally(function() {
               oSheet.destroy();
             });
-          }
+          },
+          onSearch: function (oEvent) {
+            var sQuery = oEvent.getParameter("query");
+            var aFilters = [];
+        
+            if (sQuery) {
+                var aFilterFields = ["userid", "parid", "parva", "message"];
+                var aSubFilters = aFilterFields.map(function(field) {
+                    return new sap.ui.model.Filter(field, sap.ui.model.FilterOperator.Contains, sQuery);
+                });
+        
+                aFilters = new sap.ui.model.Filter({
+                    filters: aSubFilters,
+                    and: false
+                });
+            }
+        
+            var oTable = this.byId("csvTable_r");
+            var oBinding = oTable.getBinding("items");
+            oBinding.filter(aFilters);
+        }
     });
 });
