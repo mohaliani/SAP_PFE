@@ -104,4 +104,26 @@
 .sapMObjStatusError .sapMObjStatusText {
   color: #e01919;
 }
-  
+
+.sapMITBFilter .sapMITBText .sapMITHTextContent {
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin-left: 30%;
+}
+
+.sapMITH .sapMITBContentArrow {
+  width: 140%;
+  margin-right: 10%;
+}
+
+.sapMITBItem {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sapMITBFilterIcon {
+  border: 2px solid #0064d9;
+  margin-left: 20%;
+}
