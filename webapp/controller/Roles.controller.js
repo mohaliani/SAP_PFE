@@ -130,6 +130,7 @@ sap.ui.define([
                 },
                 error: function () {
                     MessageToast.show("Error in backend communication");
+                    that._oBusyDialog.close();
                 }
             });
         },
