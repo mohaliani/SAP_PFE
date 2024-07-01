@@ -19,6 +19,7 @@
           <ToolbarSpacer id="_IDGenToolbarSpacer1" />
           <SearchField id="searchField2" placeholder="Search..." search="onSearch" width="20%"/>
           <Button id="_IDGenButton1" icon="sap-icon://excel-attachment" press="onExport"/>
+          <Button id="sortButton" icon="sap-icon://sort" press="onOpenSortDialog"/>
         </OverflowToolbar>
       </headerToolbar>
       <columns>
@@ -116,5 +117,34 @@
       <Button id="_IDGenButton2" text="Close" press="onCloseDialog" />
     </buttons>
   </Dialog>
+  <Dialog id="sortDialog" title="Sort by">
+        <customHeader>
+            <Toolbar id="_IDGenToolbar1">
+                <Button id="_IDGenButton3" icon="sap-icon://nav-back" press="onCloseSortDialog"/>
+                <Title id="_IDGenTitle1" text="Sort by"/>
+            </Toolbar>
+        </customHeader>
+        <VBox id="_IDGenVBox2">
+            <Select id="sortSelect">
+                <core:Item id="_IDGenItem1" key="userid" text="Userid" />
+                <core:Item id="_IDGenItem2" key="icon" text="Success/Failed" />
+                <core:Item id="_IDGenItem3" key="firstname" text="Firstname" />
+                <core:Item id="_IDGenItem4" key="lastnmae" text="Lastname" />
+                <core:Item id="_IDGenItem5" key="email" text="Email" />
+                <core:Item id="_IDGenItem6" key="password" text="Password" />
+                <core:Item id="_IDGenItem7" key="langup" text="Langage" />
+                <core:Item id="_IDGenItem8" key="datefrom" text="Start date" />
+                <core:Item id="_IDGenItem9" key="dateto" text="End date" />
+                <core:Item id="_IDGenItem10" key="usergrp" text="Usergroup" />
+                <core:Item id="_IDGenItem11" key="spld" text="Output Device" />
+                <core:Item id="_IDGenItem12" key="commtype" text="Communication Type" />
+                <core:Item id="_IDGenItem13" key="decimal" text="Decimal" />
+                <core:Item id="_IDGenItem14" key="company" text="Company" />
+            </Select>
+        </VBox>
+        <endButton>
+            <Button id="_IDGenButton4" text="Sort" press="onSortButtonPress"/>
+        </endButton>
+    </Dialog>
   <BusyDialog id="busyDialog" />
 </mvc:View>

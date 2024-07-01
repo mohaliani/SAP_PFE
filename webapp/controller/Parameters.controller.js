@@ -3,7 +3,8 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/export/Spreadsheet",
     "sap/m/MessageToast",
-    "sap/m/BusyDialog" 
+    "sap/m/BusyDialog" ,
+    "sap/ui/model/Sorter" 
 ], function (Controller, JSONModel, Spreadsheet, MessageToast, BusyDialog) {
     "use strict";
 
@@ -15,6 +16,7 @@ sap.ui.define([
             });
             this.getView().setModel(oParamModel, "paramModel");
             this._oBusyDialog = this.byId("busyDialog");
+            this._bSortAsccending = false; // Default sort order
         },
 
         onFileUpload: function (oEvent) {
@@ -133,6 +135,32 @@ sap.ui.define([
             var oTable = this.byId("csvTable_r");
             var oBinding = oTable.getBinding("items");
             oBinding.filter(aFilters);
+        },
+        onOpenSortDialog: function () {
+            this.byId("sortDialog").open();
+        },
+        onCloseSortDialog: function () {
+            this.byId("sortDialog").close();
+        },
+
+        onSortButtonPress: function () {
+            var oTable = this.byId("csvTable_r");
+            var oBinding = oTable.getBinding("items");
+            var oSelect = this.byId("sortSelect");
+            var sSortField = oSelect.getSelectedKey();
+
+            console.log("Selected Sort Field:", sSortField); // Log the selected sort field
+
+            if (sSortField && oBinding) {
+                this._bSortAscending = !this._bSortDescending;
+                var oSorter = new sap.ui.model.Sorter(sSortField, this._bSortDescending);
+                oBinding.sort(oSorter);
+            } else {
+                console.error("No binding found for the table or selected sort field.");
+            }
+
+            this.byId("sortDialog").close();
         }
+
     });
 });

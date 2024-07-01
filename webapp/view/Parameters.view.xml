@@ -2,7 +2,8 @@
     xmlns:unified="sap.ui.unified"
     controllerName="project1.controller.Parameters"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
     <VBox id="mainVBox" class="mainVBox">
     <unified:FileUploader id="fileUploader" name="file" placeholder="Upload CSV File" change="onFileUpload" fileType="CSV" />
     <HBox id="buttonHBox" class="buttonHBox">
@@ -16,6 +17,7 @@
 					<ToolbarSpacer id="_IDGenToolbarSpacer1" />
                     <SearchField id="searchField2" placeholder="Search..." search="onSearch" width="20%"/>
 					<Button id="_IDGenButton1" icon="sap-icon://excel-attachment" press="onExport"/>
+                    <Button id="sortButton" icon="sap-icon://sort" press="onOpenSortDialog"/>
 				</OverflowToolbar>
 			</headerToolbar>
             <columns>
@@ -48,6 +50,25 @@
             </items>
         </Table>
     </VBox>
+    <Dialog id="sortDialog" title="Sort by">
+        <customHeader>
+            <Toolbar id="_IDGenToolbar1">
+                <Button id="_IDGenButton2" icon="sap-icon://nav-back" press="onCloseSortDialog"/>
+                <Title id="_IDGenTitle1" text="Sort by"/>
+            </Toolbar>
+        </customHeader>
+        <VBox id="_IDGenVBox1">
+            <Select id="sortSelect">
+                <core:Item id="_IDGenItem1" key="userid" text="Userid" />
+                <core:Item id="_IDGenItem6" key="icon" text="Success/Failed" />
+                <core:Item id="_IDGenItem2" key="parid" text="Parameter Id" />
+                <core:Item id="_IDGenItem3" key="parva" text="Parameter Value" />
+            </Select>
+        </VBox>
+        <endButton>
+            <Button id="_IDGenButton3" text="Sort" press="onSortButtonPress"/>
+        </endButton>
+    </Dialog>
     <BusyDialog id="busyDialog" />
 </mvc:View>
     

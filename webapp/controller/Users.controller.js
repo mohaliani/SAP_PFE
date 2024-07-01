@@ -3,8 +3,9 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/export/Spreadsheet",
     "sap/m/MessageToast",
-    "sap/m/BusyDialog"
-], function (Controller,  JSONModel, Spreadsheet, MessageToast, BusyDialog) {
+    "sap/m/BusyDialog",
+    "sap/ui/model/Sorter"
+], function (Controller, JSONModel, Spreadsheet, MessageToast, BusyDialog) {
     "use strict";
 
     return Controller.extend("project1.controller.Main", {
@@ -15,6 +16,7 @@ sap.ui.define([
             });
             this.getView().setModel(oUserModel, "userModel");
             this._oBusyDialog = this.byId("busyDialog");
+            this._bSortAsccending = false; // Default sort order
         },
 
         onFileUpload: function (oEvent) {
@@ -79,7 +81,7 @@ sap.ui.define([
 
         _sendRequest: function (sAction) {
             var oModel = this.getView().getModel("userModel");
-            
+
             // Clear the userreturn property before sending the request
             oModel.setProperty("/userreturn", []);
 
@@ -133,92 +135,117 @@ sap.ui.define([
             return value.toString().padStart(2, '0');
         },
 
-        onExport: function() {
-      var oTable = this.byId("responseTable");
-      var oModel = oTable.getModel("userModel");
-      var aData = oModel.getProperty("/userreturn");
+        onExport: function () {
+            var oTable = this.byId("responseTable");
+            var oModel = oTable.getModel("userModel");
+            var aData = oModel.getProperty("/userreturn");
 
-      var aCols = [
-        { label: "User ID", property: "userid", type: "string" },
-        { label: "First Name", property: "firstname", type: "string" },
-        { label: "Last Name", property: "lastname", type: "string" },
-        { label: "Email", property: "email", type: "string" },
-        { label: "Password", property: "password", type: "string" },
-        { label: "Language", property: "langup", type: "string" },
-        { label: "Date From", property: "datefrom", type: "string" },
-        { label: "Date To", property: "dateto", type: "string" },
-        { label: "User Group", property: "usergrp", type: "string" },
-        { label: "Output Device", property: "spld", type: "string" },
-        { label: "Communication Type", property: "commtype", type: "string" },
-        { label: "Decimal", property: "dcpfm", type: "string" },
-        { label: "Company", property: "company", type: "string" },
-        { label: "Message", property: "message", type: "string" }
-      ];
+            var aCols = [
+                { label: "User ID", property: "userid", type: "string" },
+                { label: "First Name", property: "firstname", type: "string" },
+                { label: "Last Name", property: "lastname", type: "string" },
+                { label: "Email", property: "email", type: "string" },
+                { label: "Password", property: "password", type: "string" },
+                { label: "Language", property: "langup", type: "string" },
+                { label: "Date From", property: "datefrom", type: "string" },
+                { label: "Date To", property: "dateto", type: "string" },
+                { label: "User Group", property: "usergrp", type: "string" },
+                { label: "Output Device", property: "spld", type: "string" },
+                { label: "Communication Type", property: "commtype", type: "string" },
+                { label: "Decimal", property: "dcpfm", type: "string" },
+                { label: "Company", property: "company", type: "string" },
+                { label: "Message", property: "message", type: "string" }
+            ];
 
-      var oSettings = {
-        workbook: { columns: aCols },
-        dataSource: aData,
-        fileName: "User_Data.xlsx"
-      };
+            var oSettings = {
+                workbook: { columns: aCols },
+                dataSource: aData,
+                fileName: "User_Data.xlsx"
+            };
 
-      var oSheet = new Spreadsheet(oSettings);
-      oSheet.build().then(function() {
-        sap.m.MessageToast.show("Spreadsheet export has finished");
-      }).finally(function() {
-        oSheet.destroy();
-      });
-    },
+            var oSheet = new Spreadsheet(oSettings);
+            oSheet.build().then(function () {
+                sap.m.MessageToast.show("Spreadsheet export has finished");
+            }).finally(function () {
+                oSheet.destroy();
+            });
+        },
 
-    onSelectionChange: function (oEvent) {
-      var oTable = oEvent.getSource();
-      var oSelectedItem = oTable.getSelectedItem();
-      if (oSelectedItem) {
-        var oBindingContext = oSelectedItem.getBindingContext("userModel");
+        onSelectionChange: function (oEvent) {
+            var oTable = oEvent.getSource();
+            var oSelectedItem = oTable.getSelectedItem();
+            if (oSelectedItem) {
+                var oBindingContext = oSelectedItem.getBindingContext("userModel");
 
-        this._getDetailsDialog().bindElement({
-          path: oBindingContext.getPath(),
-          model: "userModel"
-        });
-        this._getDetailsDialog().open();
-      }
-    },
+                this._getDetailsDialog().bindElement({
+                    path: oBindingContext.getPath(),
+                    model: "userModel"
+                });
+                this._getDetailsDialog().open();
+            }
+        },
 
-    _getDetailsDialog: function () {
-      if (!this._oDialog) {
-        this._oDialog = this.byId("detailsDialog");
-        if (!this._oDialog) {
-          // Load asynchronous XML fragment
-          this._oDialog = sap.ui.xmlfragment(this.getView().getId(), "project1.view.DetailsDialog", this);
-          this.getView().addDependent(this._oDialog);
+        _getDetailsDialog: function () {
+            if (!this._oDialog) {
+                this._oDialog = this.byId("detailsDialog");
+                if (!this._oDialog) {
+                    // Load asynchronous XML fragment
+                    this._oDialog = sap.ui.xmlfragment(this.getView().getId(), "project1.view.DetailsDialog", this);
+                    this.getView().addDependent(this._oDialog);
+                }
+            }
+            return this._oDialog;
+        },
+
+        onCloseDialog: function () {
+            this._getDetailsDialog().close();
+        },
+        onSearch: function (oEvent) {
+            var sQuery = oEvent.getParameter("query");
+            var aFilters = [];
+
+            if (sQuery) {
+                var aFilterFields = ["userid", "firstname", "lastname", "email", "password", "langup", "datefrom",
+                    "dateto", "usergrp", "spld", "commtype", "dcpfm", "company", "message"];
+                var aSubFilters = aFilterFields.map(function (field) {
+                    return new sap.ui.model.Filter(field, sap.ui.model.FilterOperator.Contains, sQuery);
+                });
+
+                aFilters = new sap.ui.model.Filter({
+                    filters: aSubFilters,
+                    and: false
+                });
+            }
+
+            var oTable = this.byId("responseTable");
+            var oBinding = oTable.getBinding("items");
+            oBinding.filter(aFilters);
+        },
+        onOpenSortDialog: function () {
+            this.byId("sortDialog").open();
+        },
+        onCloseSortDialog: function () {
+            this.byId("sortDialog").close();
+        },
+
+        onSortButtonPress: function () {
+            var oTable = this.byId("responseTable");
+            var oBinding = oTable.getBinding("items");
+            var oSelect = this.byId("sortSelect");
+            var sSortField = oSelect.getSelectedKey();
+
+            console.log("Selected Sort Field:", sSortField); // Log the selected sort field
+
+            if (sSortField && oBinding) {
+                this._bSortAscending = !this._bSortDescending;
+                var oSorter = new sap.ui.model.Sorter(sSortField, this._bSortDescending);
+                oBinding.sort(oSorter);
+            } else {
+                console.error("No binding found for the table or selected sort field.");
+            }
+
+            this.byId("sortDialog").close();
         }
-      }
-      return this._oDialog;
-    },
-
-    onCloseDialog: function () {
-      this._getDetailsDialog().close();
-    },
-    onSearch: function (oEvent) {
-      var sQuery = oEvent.getParameter("query");
-      var aFilters = [];
-  
-      if (sQuery) {
-          var aFilterFields = ["userid", "firstname", "lastname", "email", "password", "langup", "datefrom",
-                              "dateto", "usergrp", "spld", "commtype", "dcpfm", "company", "message"];
-          var aSubFilters = aFilterFields.map(function(field) {
-              return new sap.ui.model.Filter(field, sap.ui.model.FilterOperator.Contains, sQuery);
-          });
-  
-          aFilters = new sap.ui.model.Filter({
-              filters: aSubFilters,
-              and: false
-          });
-      }
-  
-      var oTable = this.byId("responseTable");
-      var oBinding = oTable.getBinding("items");
-      oBinding.filter(aFilters);
-  }
 
     });
 });
