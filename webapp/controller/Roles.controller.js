@@ -24,7 +24,6 @@ sap.ui.define([
             this._oBusyDialog = this.byId("busyDialog");
         },
 
-        
         onFileChange: function (oEvent) {
             var oFile = oEvent.getParameter("files") && oEvent.getParameter("files")[0];
             

@@ -20,39 +20,43 @@ sap.ui.define([
         },
 
         onFileUpload: function (oEvent) {
-            var oFile = oEvent.getParameter("files")[0];
-            var that = this;
-
-            if (oFile && window.FileReader) {
+            var oFile = oEvent.getParameter("files") && oEvent.getParameter("files")[0];
+            
+            if (oFile) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    var sCSV = e.target.result;
-                    var aLines = sCSV.split("\n");
-
-                    // Skip the first line (header)
-                    var aUsers = aLines.slice(1).map(function (line) {
-                        var aFields = line.split(",");
-                        return {
-                            userid: aFields[0],
-                            firstname: aFields[1],
-                            lastname: aFields[2],
-                            email: aFields[3],
-                            password: aFields[4],
-                            langup: aFields[5],
-                            datefrom: that._formatDate(aFields[6]),
-                            dateto: that._formatDate(aFields[7]),
-                            usergrp: aFields[8],
-                            spld: aFields[9],
-                            commtype: aFields[10],
-                            dcpfm: aFields[11],
-                            company: aFields[12]
-                        };
-                    });
-
-                    that.getView().getModel("userModel").setProperty("/allusers", aUsers);
-                };
+                    var sContent = e.target.result;
+                    this._parseCSV(sContent);
+                    MessageToast.show("File uploaded successfully");
+                }.bind(this);
                 reader.readAsText(oFile);
+                
             }
+        },
+
+        _parseCSV: function (sCSV) {
+            var aLines = sCSV.split(/\r?\n/);
+            var aResult = [];
+            var aHeaders = aLines[0].split(',');
+
+            for (var i = 1; i < aLines.length; i++) {
+                if (aLines[i].trim() !== "") {
+                    var aData = aLines[i].split(',');
+                    var oRow = {};
+                    for (var j = 0; j < aHeaders.length; j++) {
+                        var sHeader = aHeaders[j].trim();
+                        var sData = aData[j].trim();
+                        if (sHeader === "datefrom" || sHeader === "dateto") {
+                            
+                           sData = this._formatDate(sData);
+                        }
+
+                        oRow[sHeader] = sData;
+                    }
+                    aResult.push(oRow);
+                }
+            }
+            this.getView().getModel("userModel").setProperty("/allusers", aResult);
         },
 
         _formatDate: function (sDate) {
