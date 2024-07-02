@@ -18,31 +18,40 @@ sap.ui.define([
             this._oBusyDialog = this.byId("busyDialog");
             this._bSortAsccending = false; // Default sort order
         },
-
         onFileUpload: function (oEvent) {
-            var oFile = oEvent.getParameter("files")[0];
-            var that = this;
-
-            if (oFile && window.FileReader) {
+            var oFile = oEvent.getParameter("files") && oEvent.getParameter("files")[0];
+            
+            if (oFile) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    var sCSV = e.target.result;
-                    var aLines = sCSV.split("\n");
-
-                    // Skip the first line (header)
-                    var aParams = aLines.slice(1).map(function (line) {
-                        var aFields = line.split(",");
-                        return {
-                            userid: aFields[0],
-                            parid: aFields[1],
-                            parva: aFields[2],
-                        };
-                    });
-
-                    that.getView().getModel("paramModel").setProperty("/allparams", aParams);
-                };
+                    var sContent = e.target.result;
+                    this._parseCSV(sContent);
+                    MessageToast.show("File uploaded successfully");
+                }.bind(this);
                 reader.readAsText(oFile);
+                
             }
+        },
+
+        _parseCSV: function (sCSV) {
+            var aLines = sCSV.split(/\r?\n/);
+            var aResult = [];
+            var aHeaders = aLines[0].split(',');
+
+            for (var i = 1; i < aLines.length; i++) {
+                if (aLines[i].trim() !== "") {
+                    var aData = aLines[i].split(',');
+                    var oRow = {};
+                    for (var j = 0; j < aHeaders.length; j++) {
+                        var sHeader = aHeaders[j].trim();
+                        var sData = aData[j].trim();
+                        oRow[sHeader] = sData;
+                    }
+                    aResult.push(oRow);
+                }
+            }
+
+            this.getView().getModel("paramModel").setProperty("/allparams", aResult);
         },
 
         onCreate: function () {
