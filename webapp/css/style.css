@@ -127,3 +127,12 @@
   border: 2px solid #0064d9;
   margin-left: 20%;
 }
+
+.sapUiUserSelectable {
+  -webkit-touch-callout: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+  text-align: center;
+}

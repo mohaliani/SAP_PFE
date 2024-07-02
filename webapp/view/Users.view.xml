@@ -117,6 +117,7 @@
       <Button id="_IDGenButton2" text="Close" press="onCloseDialog" />
     </buttons>
   </Dialog>
+  <!-- Dialog for sorting table information -->
   <Dialog id="sortDialog" title="Sort by">
         <customHeader>
             <Toolbar id="_IDGenToolbar1">
