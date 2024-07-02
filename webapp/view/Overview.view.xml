@@ -3,7 +3,7 @@
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	displayBlock="true">
-	<Page id="overview" title="Auth Maintenance">
+	<Page id="overview">
 		
         <IconTabBar id="IcontabBar" class="centeredIconTabBar" >
                 <items >
