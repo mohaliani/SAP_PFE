@@ -25,8 +25,13 @@
                         icon="sap-icon://settings">
                         <mvc:XMLView id="XMLViewP" viewName="project1.view.Parameters"/>
                     </IconTabFilter>
+                    <IconTabFilter id="IconTabFilterAD"
+                        text="Create Users from AD"
+                        key="parameters"
+                        icon="sap-icon://add-employee">
+                        <mvc:XMLView id="XMLViewAD" viewName="project1.view.ADUsers"/>
+                    </IconTabFilter>
                 </items>
             </IconTabBar>
-          
 	</Page>
 </mvc:View>

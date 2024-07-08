@@ -42,6 +42,15 @@
                     "localUri": "localService/ZODATA_ROLES_MGT_SRV/metadata.xml",
                     "odataVersion": "2.0"
                 }
+            },
+            "Z_LDAP_USER_MAINTENANCE_SRV": {
+                "uri": "/sap/opu/odata/sap/Z_LDAP_USER_MAINTENANCE_SRV",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/Z_LDAP_USER_MAINTENANCE_SRV/metadata.xml",
+                    "odataVersion": "2.0"
+                }
             }
         }
     },
@@ -106,6 +115,18 @@
             },
             "ZODATA_ROLES_MGT_SRV": {
                 "dataSource": "ZODATA_ROLES_MGT_SRV",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+           "Z_LDAP_USER_MAINTENANCE_SRV": {
+                "dataSource": "Z_LDAP_USER_MAINTENANCE_SRV",
                 "preload": true,
                 "settings": {
                     "defaultBindingMode": "TwoWay",

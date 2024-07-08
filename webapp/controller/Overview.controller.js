@@ -13,7 +13,9 @@ sap.ui.define([
                 tabs: [
                     { key: "users", text: "Users Management", icon: "sap-icon://group" },
                     { key: "roles", text: "Roles Management", icon: "sap-icon://role" },
-                    { key: "parameters", text: "Parameters Management", icon: "sap-icon://settings" }
+                    { key: "parameters", text: "Parameters Management", icon: "sap-icon://settings" },
+                    { key: "adusers", text: "Create Users from AD", icon: "sap-icon://add-employee" }
+
                 ]
             });
             this.setModel(oTabModel, "tabModel");
